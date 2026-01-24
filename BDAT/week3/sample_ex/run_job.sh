@@ -5,7 +5,7 @@ JAR_PATH="/usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.4.1.jar"
 INPUT_PATH="/user/230968078/week3/input_sample.txt"
 OUTPUT_PATH="/user/230968078/week3/result_sample"
 
-hdfs dfs -put input_sample.txt /user/230968078/week3/
+hdfs dfs -put -f input_sample.txt /user/230968078/week3/
 
 echo "Starting hadoop job..."
 hadoop jar $JAR_PATH \
