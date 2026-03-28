@@ -1,0 +1,46 @@
+# Create Tables
+create 'students', 'personal', 'academic'
+create 'employees', 'details', 'salary'
+create 'orders', 'customer', 'items', 'payment'
+
+# Describe Structures
+describe 'students'
+describe 'employees'
+describe 'orders'
+
+disable 'orders'
+drop 'orders'
+create 'orders', 'customer', 'items', 'payment'
+
+# Students
+put 'students', 's1', 'personal:name', 'Alice'
+put 'students', 's1', 'personal:age', '20'
+put 'students', 's1', 'academic:marks', '85'
+put 'students', 's1', 'academic:grade', 'A'
+
+# Employees
+put 'employees', 'e1', 'details:name', 'John'
+put 'employees', 'e1', 'details:age', '30'
+put 'employees', 'e1', 'details:department', 'IT'
+put 'employees', 'e1', 'salary:basic_pay', '60000'
+
+# Orders
+put 'orders', 'ord101', 'customer:name', 'Bob'
+put 'orders', 'payment:mode', 'Credit Card'
+
+scan 'students', {COLUMNS => ['personal:name', 'academic:marks']}
+
+scan 'employees', {FILTER => "SingleColumnValueFilter('salary', 'basic_pay', >, 'binary:55000')"}
+
+scan 'orders', {LIMIT => 3}
+
+scan 'students', {FILTER => "SingleColumnValueFilter('academic', 'marks', >, 'binary:80')"}
+
+scan 'employees', {FILTER => "SingleColumnValueFilter('details', 'department', =, 'binary:IT')"}
+
+scan 'orders', {FILTER => "SingleColumnValueFilter('payment', 'mode', =, 'binary:Credit Card')"}
+
+count 'employees'
+
+# Using a filter to find a specific high range or scanning the age column
+scan 'students', {COLUMNS => 'personal:age'}

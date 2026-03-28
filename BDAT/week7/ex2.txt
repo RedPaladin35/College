@@ -1,0 +1,24 @@
+create 'library', 'book_info', 'availability'
+
+# Book B001
+put 'library', 'B001', 'book_info:title', 'The Great Gatsby'
+put 'library', 'B001', 'book_info:author', 'F. Scott Fitzgerald'
+put 'library', 'B001', 'availability:status', 'Available'
+
+# Book B002
+put 'library', 'B002', 'book_info:title', '1984'
+put 'library', 'B002', 'book_info:author', 'George Orwell'
+put 'library', 'B002', 'availability:status', 'Available'
+
+# Book B003
+put 'library', 'B003', 'book_info:title', 'The Hobbit'
+put 'library', 'B003', 'availability:status', 'Available'
+
+get 'library', 'B002'
+
+scan 'library', {FILTER => "SingleColumnValueFilter('availability', 'status', =, 'binary:Available')"}
+
+put 'library', 'B003', 'availability:status', 'Borrowed'
+put 'library', 'B003', 'availability:borrower', 'Michael'
+
+count 'library'

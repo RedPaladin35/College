@@ -1,0 +1,24 @@
+create 'transactions', 'customer_info', 'transaction_details'
+
+# Transaction T001
+put 'transactions', 'T001', 'customer_info:name', 'Alice'
+put 'transactions', 'T001', 'transaction_details:amount', '5000'
+put 'transactions', 'T001', 'transaction_details:mode', 'Credit Card'
+
+# Transaction T002
+put 'transactions', 'T002', 'customer_info:name', 'Bob'
+put 'transactions', 'T002', 'transaction_details:amount', '2000'
+put 'transactions', 'T002', 'transaction_details:mode', 'Debit Card'
+
+# Transaction T003
+put 'transactions', 'T003', 'customer_info:name', 'Charlie'
+put 'transactions', 'T003', 'transaction_details:amount', '4500'
+put 'transactions', 'T003', 'transaction_details:mode', 'Credit Card'
+
+scan 'transactions', {FILTER => "SingleColumnValueFilter('transaction_details', 'amount', >, 'binary:3000')"}
+
+scan 'transactions', {FILTER => "SingleColumnValueFilter('transaction_details', 'mode', =, 'binary:Credit Card')"}
+
+scan 'transactions', {COLUMNS => ['customer_info:name', 'transaction_details:amount']}
+
+deleteall 'transactions', 'T002'
